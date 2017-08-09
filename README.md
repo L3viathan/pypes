@@ -13,3 +13,7 @@ You can also assign a pipe to a variable. The following code puts the sum into
 the variable `foo` instead of printing it.
 
     foo = start | input() | str.split | "," | (map, int) | sum | end
+
+## Usage
+
+All you need to do is to import `start` and `end` (or `*`) from `pypes`
