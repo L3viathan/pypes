@@ -14,7 +14,6 @@ the variable `foo` instead of printing it.
     foo = start | input() | str.split | "," | (map, int) | sum | end
 
 """
-import sys
 from functools import partial
 from collections import deque
 
@@ -67,5 +66,6 @@ class Pipe:
 class PipeStarter:
     def __or__(self, other):
         return Pipe() | other
+
 
 start, end = PipeStarter(), Pipe()
