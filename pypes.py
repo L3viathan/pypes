@@ -21,6 +21,19 @@ __all__ = ['start', 'end']
 
 
 class Pipe:
+    """
+    Pipe object
+
+    This object can be |'d with either a callable, a tuple, a list, or a dict.
+    A callable causes this callable to be added to the call stack. The other
+    datastructures prefill arguments of the callable:
+        - Tuples cause the first element to be interpreted as the callable, the
+          other ones as the first arguments. The pipe value gets added as a
+          parameter after this.
+        - Lists add arguments after the existing arguments, to the last added
+          callable.
+        - Dictionaries act like lists, but with keyword arguments.
+    """
     def __init__(self):
         self.chain = deque()
         self.val = None
@@ -32,7 +45,6 @@ class Pipe:
             self.val = other
         elif isinstance(other, tuple):
             # put argument _after_ these
-            assert callable(self.chain[-1])
             fn, *rest = other
             self.chain.append(partial(fn, *rest))
         elif callable(other):
@@ -57,6 +69,9 @@ class Pipe:
         return self
 
     def go(self):
+        """
+        Start the evaluation of the pipe.
+        """
         while self.chain:
             fn = self.chain.popleft()
             self.val = fn(self.val)
@@ -64,6 +79,9 @@ class Pipe:
 
 
 class PipeStarter:
+    """
+    A singleton to start a pipe.
+    """
     def __or__(self, other):
         return Pipe() | other
 
