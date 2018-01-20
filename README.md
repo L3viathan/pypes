@@ -7,13 +7,13 @@ Python code. For example, instead of:
 
 you can write
 
-    start | input() | str.split | "," | (map, int) | sum | print | end
+    -(O| input() | str.split | "," | (map, int) | sum | print)
 
 You can also assign a pipe to a variable. The following code puts the sum into
 the variable `foo` instead of printing it.
 
-    foo = start | input() | str.split | "," | (map, int) | sum | end
+    foo = -(O| input() | str.split | "," | (map, int) | sum)
 
 ## Usage
 
-All you need to do is to import `start` and `end` (or `*`) from `pypes`
+All you need to do is to import `O` (or `*`) from `pypes`
